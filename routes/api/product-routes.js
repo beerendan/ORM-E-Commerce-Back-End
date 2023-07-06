@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { on } = require('nodemon');
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
@@ -8,18 +9,24 @@ router.get('/', (req, res) => {
   // find all products
   Product.findAll({
     attributes:[
-      'id', 'product_name','price','stock','category_id'
+      'id',
+      'product_name',
+      'price',
+      'stock',
+      'category_id'
     ],
     include:[{
       model: Category,
       attributes:[
-        'id','category_name',
+        'id',
+        'category_name',
       ]
     },
     {
       model: Tag,
       attributes:[
-        'id','tag_name'
+        'id',
+        'tag_name'
       ]
     }
     ]
@@ -35,8 +42,49 @@ router.get('/', (req, res) => {
 
 // get one product
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  Product.findOne({
+    where:{
+    // find a single product by its `id`
+      id:req.params.id
+    },
+    attributes:[
+      'id',
+      'product_name',
+      'price',
+      'stock',
+      'category_id'
+    ],
+     //include its associated Category and Tag data
+    include:[
+      {
+        model: Category,
+        attributes:[
+          'id',
+          'category_name'
+        ]
+      },
+      {
+        model: Tag,
+        attributes:[
+          'id',
+          'tag_name'
+        ]
+      }
+    ]
+  })
+  //return result to be displayed and verify valid id
+  .then(oneProductData=>{
+    if (!oneProductData){
+      res.status(404).json(err);
+      return;
+    }
+    res.json(oneProductData);
+  })
+  .catch(err=>{
+    console.log(err);
+    res.status(500).json(err);
+  });
+ 
 });
 
 // create new product
