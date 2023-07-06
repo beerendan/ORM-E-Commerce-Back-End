@@ -162,12 +162,12 @@ router.delete('/:id', (req, res) => {
     }
   })
   //then delete it
-  .then(deleteProductData=>{
-    if(!deleteProductData){
+  .then(deletedProductData=>{
+    if(!deletedProductData){
       res.status(404).json(err);
       return;
     }
-    res.json(deleteProductData)
+    res.json(deletedProductData)
   })
   .catch(err=>{
     console.log(err);
