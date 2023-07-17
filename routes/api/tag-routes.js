@@ -34,9 +34,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
+  // find a single tag by its id
   Tag.findOne({
-    where:{
+    where: {
       id: req.params.id
     },
     attributes:[
@@ -44,7 +44,9 @@ router.get('/:id', (req, res) => {
       'tag_name'
     ],
  //include its associated Product data
-    include:[{
+    include:[
+      {
+      model: Product,
       attributes:[
         'id',
         'product_name',
@@ -52,7 +54,8 @@ router.get('/:id', (req, res) => {
         'stock',
         'category_id'
       ]
-    }]
+    }
+  ]
 })
 
  .then(oneTagData=>{
@@ -66,7 +69,7 @@ router.get('/:id', (req, res) => {
  .catch(err=>{
   console.log(err);
   res.status(500).json(err);
- });
+ })
 });
 
 router.post('/', (req, res) => {
