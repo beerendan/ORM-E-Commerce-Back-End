@@ -18,9 +18,8 @@ Clone the repository, use npm install to install the necessary packages.
 ## Usage
 Modify the .env file then run npm run seed to populate the database. Data can be viewed and edited using Insomnia on the port chosen.
 
-Screenshot of live project: 
 
-Link to deployed project: 
+Link to video walkthrough of project: https://drive.google.com/file/d/1b4Ee-zzLSLGdCKyz5a7_WyfxwE2ma-KG/view
 
 Link to project gitHub repository: https://github.com/beerendan/ORM-E-Commerce-Back-End
 
